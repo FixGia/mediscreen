@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>PatientList</title>
+    <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <a href="/patient/list">PatientList</a>&nbsp;|&nbsp;
+
+        </div>
+
+    </div>
+    </br></br>
+    <form th:action="@{/patient/list}">
+        Filter: <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}" required />
+        &nbsp;
+        <input type="submit" value="Search" />
+        &nbsp;
+        <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+
+        <script type="text/javascript">
+            function clearSearch() {
+                window.location = "[[@{/patient/list}]]";
+            }
+        </script>
+    </form>
+    </br></br>
+    <div class="row"><h2>Patient List</h2></div>
+    <div class="row">
+        <a href="/patient/add" class="btn btn-primary btn-sm">Add New Patient</a>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Last Name</th>
+                <th>First Name</th>
+                <th>Date of birth</th>
+                <th>Sex</th>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${patients}">
+                <td style="width: 10%" th:text="${patient.id}"></td>
+                <td th:text="${patient.lastName}"></td>
+                <td th:text="${patient.firstName}"></td>
+                <td style="width: 25%" th:text="${patient.birthDate}"></td>
+                <td style="width: 25%" th:text="${patient.sex}"></td>
+                <td style="width: 25%" th:text="${patient.address}"></td>
+                <td style="width: 25%" th:text="${patient.phoneNumber}"></td>
+                <td style="width: 15%" class="text-center">
+                    <a th:href="@{/patient/update/{id}(id=${patient.id})}">Edit</a>&nbsp;|&nbsp;
+                    <a th:href="@{/patient/delete/{id}(id=${patient.id})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+
+</html>
