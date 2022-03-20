@@ -7,7 +7,6 @@ import com.project.patient.service.PatientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
@@ -24,6 +23,13 @@ public class PatientController {
     }
 
 
+    /**
+     * Controller Get - get PatientList
+     *
+     * @param keyword the keyword for patient research
+     *
+     * @return List of patient
+     */
     @GetMapping("/list")
     public List<PatientRequest> getPatientList(@RequestParam(value = "keyword", required = false) String keyword){
 
@@ -36,6 +42,13 @@ public class PatientController {
         return patientRequestList;
     }
 
+    /**
+     * Controller Get - get Patient
+     *
+     * @param patientId the patient Id
+     *
+     * @return a Patient
+     */
     @GetMapping("/get/{id}")
     public PatientRequest getPatientById(@PathVariable("id") int patientId) {
 
@@ -48,6 +61,15 @@ public class PatientController {
         return patientRequest;
     }
 
+    /**
+     * Controller - POST - update patient
+     *
+     * @param patientId the patient ID
+     *
+     * @param patientRequest the patient Request
+     *
+     * @return an updated patient
+     */
     @PostMapping("/update/{id}")
     public PatientRequest updatePatient(@PathVariable("id") Integer patientId, @Valid @RequestBody PatientRequest patientRequest) {
         log.debug("Controller: updatePatient - called");
@@ -59,6 +81,13 @@ public class PatientController {
         return patientToUpdate;
     }
 
+    /**
+     * Controller - POST - add Patient
+     *
+     * @param patientRequest the patient to add
+     *
+     * @return a new patient
+     */
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public PatientRequest addPatient(@Valid @RequestBody final PatientRequest patientRequest) {
@@ -72,6 +101,12 @@ public class PatientController {
         return patientToSave;
     }
 
+    /**
+     * Controller -GET - delete patient
+     *
+     * @param patientId the if of patient to delete
+     *
+     */
     @GetMapping("/delete/{id}")
     public void deletePatient(@PathVariable("id") final int patientId){
 

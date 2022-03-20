@@ -25,6 +25,13 @@ public class PatientServiceImpl implements PatientService{
         this.mapper = mapper;
     }
 
+    /**
+     *Method to Get List of All Patients
+     *
+     * @param keyword keyword for patient research
+     *
+     * @return List of patient
+     */
     @Override
     public List<PatientRequest> getAllPatients(String keyword) {
         log.debug(" Service : get All Patients - supply ");
@@ -44,6 +51,14 @@ public class PatientServiceImpl implements PatientService{
         return strictlyAllPatient;
     }
 
+    /**
+     * Method to Get Patient by ID
+     *
+     * @param patientId the patient id
+     *
+     * @return the patient
+     *
+     */
     @Override
     public PatientRequest getPatientById(int patientId) {
 
@@ -56,6 +71,16 @@ public class PatientServiceImpl implements PatientService{
 
     }
 
+    /**
+     * Method to update Patient
+     *
+     * @param patientId the patient id
+     *
+     * @param patientRequest the patient request
+     *
+     * @return The patient updated
+     *
+     */
     @Override
     public PatientRequest updatePatient(int patientId, PatientRequest patientRequest) {
 
@@ -72,7 +97,6 @@ public class PatientServiceImpl implements PatientService{
         patientToUpdate.setPhoneNumber(patientRequest.getPhoneNumber());
 
 
-
         log.info("Service : update Patient - check");
         patientRepository.save(patientToUpdate);
         return mapper.mapToPatientRequest(patientToUpdate);
@@ -80,6 +104,12 @@ public class PatientServiceImpl implements PatientService{
 
     }
 
+    /**
+     * Method to delete patient
+     *
+     * @param patientId the patient Id
+     *
+     */
     @Override
     public void deletePatient(int patientId) {
 
@@ -92,6 +122,14 @@ public class PatientServiceImpl implements PatientService{
         log.info("Service : delete Patient - check");
     }
 
+    /**
+     * Method to add Patient
+     *
+     * @param patientRequest the patient request
+     *
+     * @return a new Patient
+     *
+     */
     public PatientRequest addPatient(PatientRequest patientRequest) {
 
         log.debug("Service : add Patient - supply");

@@ -9,6 +9,13 @@ import org.springframework.stereotype.Component;
 public class Mapper {
 
 
+    /**
+     * Method to map patientRequest to Patient
+     *
+     * @param patientRequest the patientRequest to map
+     *
+     * @return Patient mapped
+     */
     public Patient mapToPatient(final PatientRequest patientRequest) {
 
         return new Patient(
@@ -21,6 +28,13 @@ public class Mapper {
     }
 
 
+    /**
+     * Method to map patient to PatientRequest
+     *
+     * @param patient the patient to map
+     *
+     * @return PatientRequest mapped
+     */
     public PatientRequest mapToPatientRequest(final Patient patient){
 
         return new PatientRequest(patient.getId(),

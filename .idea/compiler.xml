@@ -9,16 +9,21 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Ui" />
         <module name="Patient" />
+        <module name="PatientHistorical" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="HistoryPatient" target="11" />
       <module name="Patient" target="11" />
+      <module name="PatientHistorical" target="11" />
       <module name="Ui" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="HistoryPatient" options="-parameters" />
       <module name="Patient" options="-parameters" />
+      <module name="PatientHistorical" options="-parameters" />
       <module name="Ui" options="-parameters" />
     </option>
   </component>
