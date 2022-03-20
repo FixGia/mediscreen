@@ -26,6 +26,12 @@ public class PatientController {
         this.patientMicroService = patientMicroService;
     }
 
+    /**
+     * Controller GET - PatientList
+     * @param model the model
+     * @param keyword the keyword for research
+     * @return a PatientList
+     */
     @GetMapping({"/list"})
     public String getPatientList(
             final Model model,
@@ -38,6 +44,12 @@ public class PatientController {
         return "patient/list";
     }
 
+    /**
+     * Controller GET -  Update Form
+     * @param patientId the patient ID
+     * @param model the Model
+     * @return the update Form
+     */
     @GetMapping({"/update/{id}"})
     public String showUpdateForm(
             @PathVariable("id") final Integer patientId,
@@ -50,6 +62,13 @@ public class PatientController {
         return "patient/update";
     }
 
+    /**
+     * Controller - POST - updatePatient
+     * @param patientId the patient ID
+     * @param patientRequest the patient's body for update
+     * @param result a Binding result
+     * @return the updated patient
+     */
     @PostMapping({"/update/{id}"})
     public String updateUser(
             @PathVariable("id") final Integer patientId,
@@ -68,8 +87,11 @@ public class PatientController {
     }
 
 
-
-
+    /**
+     * Controller - Get - add Form
+     * @param model the model
+     * @return the add Form
+     */
     @GetMapping({"/add"})
     public String addPatientForm(final Model model) {
 
@@ -79,8 +101,12 @@ public class PatientController {
     }
 
 
-
-
+    /**
+     * Controller - POST - add patient
+     * @param patientRequest the patient to add
+     * @param result a binding result
+     * @return a new patient
+     */
     @PostMapping({"/validate"})
     public String validate(
             @Valid final PatientRequest patientRequest,
@@ -95,8 +121,11 @@ public class PatientController {
     }
 
 
-
-
+    /**
+     * Controller - Get - delete Patient
+     * @param patientId the patient ID
+     * @return a list without the patient to delete
+     */
     @GetMapping({"/delete/{id}"})
     public String deletePatient(@PathVariable("id") final Integer patientId) {
 

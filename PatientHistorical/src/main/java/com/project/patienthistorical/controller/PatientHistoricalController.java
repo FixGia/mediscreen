@@ -12,7 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 
-@RequestMapping("/patientHistorical")
+@RequestMapping("/note")
 @RestController
 @Slf4j
 public class PatientHistoricalController {
@@ -114,5 +114,19 @@ public class PatientHistoricalController {
 
         return noteToSave;
 
+    }
+
+    @GetMapping("/delete/{id}")
+    public void deletePatientNote(@PathVariable String id) throws DataNotFoundException {
+        log.debug("Controller : deleteNote  - called");
+
+        PatientNoteRequest patientNoteRequest = patientHistoricalService.getPatientNote(id);
+
+        if(patientNoteRequest !=null) {
+
+            patientHistoricalService.deletePatientNote(id);
+
+            log.info("Controller : deleteNote - success");
+        }
     }
 }

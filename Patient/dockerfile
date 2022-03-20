@@ -1,0 +1,7 @@
+FROM amazoncorretto:11-alpine-jdk
+
+ARG JAR_FILE=target/*.jar
+
+COPY ${JAR_FILE} Patient.jar
+
+ENTRYPOINT ["java","-jar","/Patient.jar"]
