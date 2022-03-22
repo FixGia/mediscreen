@@ -24,7 +24,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@DisplayName("## PatientService from Patient - UnitTest")
+@DisplayName(" - PatientService from Patient - UnitTest")
 @ExtendWith(MockitoExtension.class)
 public class PatientServiceTest {
 

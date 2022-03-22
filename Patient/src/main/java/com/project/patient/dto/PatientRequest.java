@@ -41,7 +41,7 @@ public class PatientRequest {
 
 
     @NotNull(message = "Date of birth is mandatory")
-    @Past(message = "Please enter a valid birth date")
+    @Past(message = "Please enter a valid birthdate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
