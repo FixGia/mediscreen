@@ -3,7 +3,7 @@ package com.project.patienthistorical.controller;
 import com.project.patienthistorical.dto.PatientNoteRequest;
 import com.project.patienthistorical.exception.DataAlreadyExistException;
 import com.project.patienthistorical.exception.DataNotFoundException;
-import com.project.patienthistorical.service.PatientHistoricalService;
+import com.project.patienthistorical.service.PatientNoteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +17,10 @@ import java.util.List;
 @Slf4j
 public class PatientHistoricalController {
 
-    private final PatientHistoricalService patientHistoricalService;
+    private final PatientNoteService patientNoteService;
 
-    public PatientHistoricalController(PatientHistoricalService patientHistoricalService) {
-        this.patientHistoricalService = patientHistoricalService;
+    public PatientHistoricalController(PatientNoteService patientNoteService) {
+        this.patientNoteService = patientNoteService;
     }
 
     /**
@@ -38,7 +38,7 @@ public class PatientHistoricalController {
 
         log.debug("Controller: getListNote for patient - called");
 
-        List<PatientNoteRequest> notes = patientHistoricalService.getAllNoteBelongPatient(patientId);
+        List<PatientNoteRequest> notes = patientNoteService.getAllNoteBelongPatient(patientId);
 
         log.info("Controller:  getListNote for patient - success");
 
@@ -60,7 +60,7 @@ public class PatientHistoricalController {
 
         log.debug("Controller: getNote - called");
 
-        PatientNoteRequest note = patientHistoricalService.getPatientNote(noteId);
+        PatientNoteRequest note = patientNoteService.getPatientNote(noteId);
 
         log.info("Controller : getNote - success");
 
@@ -82,11 +82,11 @@ public class PatientHistoricalController {
      */
     @PostMapping("/update/{id}")
     public PatientNoteRequest updateNoteById(@PathVariable("id") String noteId, @Valid @RequestBody PatientNoteRequest patientNoteRequest) throws DataNotFoundException {
-        log.debug("Controller: updateNoteById - called");
+        log.debug("Controller: updateNoteById {} - called", noteId);
 
-        PatientNoteRequest patientNoteToUpdate = patientHistoricalService.updatePatientNote(noteId,patientNoteRequest);
+        PatientNoteRequest patientNoteToUpdate = patientNoteService.updatePatientNote(noteId,patientNoteRequest);
 
-        log.info("Controller: updateNoteById - success");
+        log.info("Controller: updateNoteById {} - success", noteId);
 
         return patientNoteToUpdate;
     }
@@ -104,11 +104,11 @@ public class PatientHistoricalController {
      */
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public PatientNoteRequest addPatientNote(@Valid @RequestBody final PatientNoteRequest patientNoteRequest) throws DataAlreadyExistException {
+    public PatientNoteRequest addPatientNote(@RequestBody final PatientNoteRequest patientNoteRequest) throws DataAlreadyExistException {
 
         log.debug("Controller : addNote - called");
 
-        PatientNoteRequest noteToSave = patientHistoricalService.addPatientNote(patientNoteRequest);
+        PatientNoteRequest noteToSave = patientNoteService.addPatientNote(patientNoteRequest);
 
         log.info("Controller : addNote - success");
 
@@ -118,15 +118,12 @@ public class PatientHistoricalController {
 
     @GetMapping("/delete/{id}")
     public void deletePatientNote(@PathVariable String id) throws DataNotFoundException {
-        log.debug("Controller : deleteNote  - called");
 
-        PatientNoteRequest patientNoteRequest = patientHistoricalService.getPatientNote(id);
+        log.debug("Controller : deleteNote with id {} - called", id);
 
-        if(patientNoteRequest !=null) {
+        patientNoteService.deletePatientNote(id);
 
-            patientHistoricalService.deletePatientNote(id);
-
-            log.info("Controller : deleteNote - success");
+        log.info("Controller : deleteNote with id {} - success", id);
         }
     }
-}
+

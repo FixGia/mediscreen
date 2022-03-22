@@ -3,6 +3,7 @@ package com.project.ui.controller;
 import com.project.ui.dto.PatientNoteRequest;
 import com.project.ui.proxy.PatientHistoricalMicroService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,13 +41,13 @@ public class PatientNoteController {
     }
 
     @GetMapping({"/delete/{id}/{patientId}"})
-    public String deleteNote(@PathVariable("id")String noteId, @PathVariable("patientId") final Integer patientId) {
+    public String deleteNote(@PathVariable("id") String noteId , @PathVariable("patientId") final Integer patientId) {
 
-        log.debug("UI - GET - /note/delete/**/** - called");
+        log.debug("UI - GET - /note/delete/{}/{} - called", noteId, patientId);
 
         microService.deleteNote(noteId);
 
-        log.info("UI - GET - /note/delete/**/** - note deleted successfully");
+        log.info("UI - GET - /note/delete/{}/{} - note deleted successfully", noteId, patientId);
 
         return "redirect:/note/list/" + patientId;
     }
@@ -83,20 +84,28 @@ public class PatientNoteController {
         }
     }
 
-    @GetMapping({"/add"})
-    public String addNoteForm(final Model model){
+    @GetMapping({"/add/{id}"})
+    public String addNoteForm(final Model model, @PathVariable("id")final Integer patientId){
 
-        model.addAttribute("note", new PatientNoteRequest());
+
+        PatientNoteRequest note = new PatientNoteRequest();
+
+        note.setPatientId(patientId);
+        model.addAttribute("note", note);
 
         return "note/add";
 
     }
 
     @PostMapping({"/validate"})
-    public String validateAddNote(@Valid final PatientNoteRequest patientNoteRequest, final BindingResult result) {
+    public String validateAddNote(@Valid final PatientNoteRequest patientNoteRequest, final BindingResult result, final Model model) {
 
         if (result.hasErrors()) {
+
+            model.addAttribute("note", patientNoteRequest);
+
             return "note/add";
+
         } else {
 
            microService.addNote(patientNoteRequest);

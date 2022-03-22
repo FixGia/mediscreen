@@ -15,9 +15,7 @@ public class Mapper {
      */
     public PatientNote mapToPatientNote(final PatientNoteRequest patientNoteRequest) {
 
-        return new PatientNote(
-                patientNoteRequest.getId(),
-                patientNoteRequest.getPatientId(),
+        return new PatientNote(patientNoteRequest.getPatientId(),
                 patientNoteRequest.getDate(),
                 patientNoteRequest.getNote());
     }

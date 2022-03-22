@@ -17,4 +17,20 @@ public class PatientNoteRequest {
     private LocalDate date;
 
     private String note;
+
+    /**
+     * Instantiates a new note DTO.
+     *
+     * @param patientId the patient id
+     * @param date the date
+     * @param note the note
+     */
+    public PatientNoteRequest(
+            final Integer patientId,
+            final LocalDate date,
+            final String note) {
+        this.patientId = patientId;
+        this.date = date;
+        this.note = note;
+    }
 }

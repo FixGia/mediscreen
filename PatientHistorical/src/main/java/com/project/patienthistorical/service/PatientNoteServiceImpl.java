@@ -9,22 +9,22 @@ import com.project.patienthistorical.util.Mapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Service
 @Slf4j
-public class PatientHistoricalServiceImpl implements PatientHistoricalService {
+public class PatientNoteServiceImpl implements PatientNoteService {
 
 
     private final PatientNoteRepository patientNoteRepository;
     private final Mapper mapper;
 
 
-    public PatientHistoricalServiceImpl(PatientNoteRepository patientNoteRepository, Mapper mapper) {
+    public PatientNoteServiceImpl(PatientNoteRepository patientNoteRepository, Mapper mapper) {
         this.patientNoteRepository = patientNoteRepository;
         this.mapper = mapper;
     }
@@ -66,32 +66,25 @@ public class PatientHistoricalServiceImpl implements PatientHistoricalService {
 
         log.debug("Service : add PatientNote - supply");
 
-        Optional<PatientNote> patientToAdd = patientNoteRepository.findById(patientNoteRequest.getId());
+PatientNote patientNote = patientNoteRepository.findPatientNoteByDateAndDoctorNote(patientNoteRequest.getDate(), patientNoteRequest.getNote());
 
-        if (patientToAdd.isPresent()) {
+            if (patientNote == null ) {
 
-            if (Objects.equals(patientToAdd.get().getDoctorNote(), patientNoteRequest.getNote()) ||
+                //** Data generated here **//
+                patientNoteRequest.setDate(LocalDate.now());
+                PatientNote patientToSave = patientNoteRepository.save(mapper.mapToPatientNote(patientNoteRequest));
 
-                    patientToAdd.get().getDate() == patientNoteRequest.getDate()) {
-
-                throw new DataAlreadyExistException("The patientNote already exist");
-
+                log.info("Service : addPatientNote - success");
+                return mapper.mapToPatientNoteRequest(patientToSave);
             }
 
-        }
-
-        PatientNote patientToSave = patientNoteRepository.save(mapper.mapToPatientNote(patientNoteRequest));
-
-        log.info("Service : addPatientNote - success");
-
-        return mapper.mapToPatientNoteRequest(patientToSave);
+            else throw new DataAlreadyExistException("The patientNote already exist");
     }
 
-
-    /**
+        /**
      * Method to delete PatientNote
      *
-     * @param noteId The note Id
+     * @param noteId The note ID
      *
      * @throws DataNotFoundException The patientNote doesn't exist
      *
@@ -109,8 +102,7 @@ public class PatientHistoricalServiceImpl implements PatientHistoricalService {
 
             patientNoteRepository.deleteById(noteId);
         }
-
-        throw new DataNotFoundException("The patientNote doesn't exist");
+        else throw new DataNotFoundException("The patientNote doesn't exist");
     }
 
     /**
@@ -122,7 +114,7 @@ public class PatientHistoricalServiceImpl implements PatientHistoricalService {
      *
      * @throws DataNotFoundException The patientNote doesn't exist
      */
-    public PatientNoteRequest updatePatientNote(String noteId, PatientNoteRequest patientNoteRequest) throws DataNotFoundException {
+    public PatientNoteRequest updatePatientNote(final String noteId, final PatientNoteRequest patientNoteRequest) throws DataNotFoundException {
 
         log.debug("Service : update PatientNote - supply");
 
@@ -130,7 +122,9 @@ public class PatientHistoricalServiceImpl implements PatientHistoricalService {
 
         if (patientNote.isPresent()) {
 
+
             PatientNote patientToUpdate = patientNote.get();
+            patientToUpdate.setId(noteId);
             patientToUpdate.setPatientId(patientNoteRequest.getPatientId());
             patientToUpdate.setDate(patientNoteRequest.getDate());
             patientToUpdate.setDoctorNote(patientNoteRequest.getNote());
@@ -138,7 +132,10 @@ public class PatientHistoricalServiceImpl implements PatientHistoricalService {
 
             log.info("Service : update PatientNote - success");
 
+            return patientNoteRequest;
+
         }
+
         throw new DataNotFoundException("The PatientNote doesn't exist");
     }
 
@@ -164,7 +161,6 @@ public class PatientHistoricalServiceImpl implements PatientHistoricalService {
             return notes.stream().map(mapper::mapToPatientNoteRequest).collect(Collectors.toList());
 
         }
-
-        throw new DataNotFoundException("patient Id doesn't exist");
+        else throw new DataNotFoundException("patient Id doesn't exist");
     }
 }

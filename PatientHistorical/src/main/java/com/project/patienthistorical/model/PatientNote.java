@@ -24,12 +24,25 @@ public class PatientNote {
 
     private LocalDate date;
 
-    private String DoctorNote;
+    private String doctorNote;
 
 
 
-
-
+    /**
+     * Instantiates a new note.
+     *
+     * @param patientId the patient id
+     * @param date the date
+     * @param doctorNote the note
+     */
+    public PatientNote(
+            final Integer patientId,
+            final LocalDate date,
+            final String doctorNote) {
+        this.patientId = patientId;
+        this.date = date;
+        this.doctorNote = doctorNote;
+    }
 
 
 }

@@ -7,7 +7,7 @@ import com.project.patienthistorical.exception.DataNotFoundException;
 import java.util.List;
 
 
-public interface PatientHistoricalService {
+public interface PatientNoteService {
 
     PatientNoteRequest getPatientNote(String noteId) throws DataNotFoundException;
 
