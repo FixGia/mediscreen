@@ -7,14 +7,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Ui" />
         <module name="Patient" />
+        <module name="Ui" />
         <module name="PatientHistorical" />
+        <module name="PatientDiabetesRisk" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="HistoryPatient" target="11" />
       <module name="Patient" target="11" />
+      <module name="PatientDiabetesRisk" target="11" />
       <module name="PatientHistorical" target="11" />
       <module name="Ui" target="11" />
     </bytecodeTargetLevel>
@@ -23,6 +25,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="HistoryPatient" options="-parameters" />
       <module name="Patient" options="-parameters" />
+      <module name="PatientDiabetesRisk" options="-parameters" />
       <module name="PatientHistorical" options="-parameters" />
       <module name="Ui" options="-parameters" />
     </option>
