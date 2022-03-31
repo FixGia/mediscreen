@@ -12,7 +12,7 @@ public class Constraints {
 
 
     /**
-     * Constraint LastNAme Max Size
+     * Constraint LastName Max Size
      */
     public static final int LAST_NAME_MAX_SIZE = 100;
 

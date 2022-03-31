@@ -70,7 +70,7 @@ PatientNote patientNote = patientNoteRepository.findPatientNoteByDateAndDoctorNo
 
             if (patientNote == null ) {
 
-                //** Data generated here **//
+                //** Date generated here **//
                 patientNoteRequest.setDate(LocalDate.now());
                 PatientNote patientToSave = patientNoteRepository.save(mapper.mapToPatientNote(patientNoteRequest));
 
@@ -81,7 +81,7 @@ PatientNote patientNote = patientNoteRepository.findPatientNoteByDateAndDoctorNo
             else throw new DataAlreadyExistException("The patientNote already exist");
     }
 
-        /**
+    /**
      * Method to delete PatientNote
      *
      * @param noteId The note ID

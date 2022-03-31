@@ -11,8 +11,23 @@ import java.util.List;
 @Repository
 public interface PatientNoteRepository extends MongoRepository<PatientNote, String> {
 
+    /**
+     * Method to find Note By patientID
+     *
+     * @param patientId the patient ID
+     *
+     * @return a List which contain all notes for a patient
+     */
     List<PatientNote> findByPatientId (final Integer patientId);
 
+    /**
+     * Method to find Note By date and doctorNote
+     *
+     * @param date the date
+     * @param doctorNote the note
+     *
+     * @return a Note
+     */
     PatientNote findPatientNoteByDateAndDoctorNote(LocalDate date, String doctorNote);
 
 }

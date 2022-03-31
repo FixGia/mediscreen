@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 
@@ -26,7 +27,7 @@ public class PatientServiceImpl implements PatientService{
     }
 
     /**
-     *Method to Get List of All Patients
+     * Method to Get List of All Patients
      *
      * @param keyword keyword for patient research
      *
@@ -34,10 +35,11 @@ public class PatientServiceImpl implements PatientService{
      */
     @Override
     public List<PatientRequest> getAllPatients(String keyword) {
+
         log.debug(" Service : get All Patients - supply ");
 
         if(keyword != null) {
-            List<PatientRequest> patientRequestList = patientRepository.findByKeyword(keyword).stream()
+            List<PatientRequest> patientRequestList = patientRepository.findByKeyword(keyword.toLowerCase()).stream()
                     .map(mapper::mapToPatientRequest).collect(Collectors.toList());
 
             log.info("Service : get All Patients with keyword - submit");

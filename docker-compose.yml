@@ -1,0 +1,77 @@
+version: '3.8'
+
+services :
+
+  mysql:
+    image: mysql:8
+    container_name: mysqldb
+    environment:
+      MYSQL_ROOT_PASSWORD: nirVana2005!
+      MYSQL_USER: userMediscreen
+      MYSQL_PASSWORD: mediscreenUserPassword
+      MYSQL_DATABASE: mediscreen
+    ports:
+      - "3307:3306"
+
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    restart: always
+    
+
+  patient-microservice:
+    image: patient-microservice
+    build:
+      context: Patient
+      dockerfile: dockerfile
+    ports:
+      - "9011:9011"
+    depends_on:
+      - mysql
+    networks:
+      - web-server
+
+
+
+  patient-historical:
+    image: patient-historical
+    build:
+      context: PatientHistorical
+      dockerfile: dockerfile
+    ports:
+      - "9012:9012"
+    depends_on:
+      - mongodb
+
+
+  patient-diabetes-risk:
+    image: diabetes-risk
+    build:
+      context: PatientDiabetesRisk
+      dockerfile: dockerfile
+    ports:
+      - "9013:9013"
+    depends_on:
+      - patient-microservice
+    restart: always
+
+
+  ui-microservice:
+    image: ui-microservice
+    build:
+      context: Ui
+      dockerfile: dockerfile
+    ports:
+      - "9010:9010"
+    depends_on:
+      - patient-microservice
+      - patient-diabetes-risk
+      - patient-historical
+    restart: always
+
+networks:
+      web-server:
+       driver: bridge

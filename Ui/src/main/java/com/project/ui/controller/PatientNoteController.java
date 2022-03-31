@@ -25,7 +25,12 @@ public class PatientNoteController {
         this.microService = microService;
     }
 
-
+    /**
+     * Controller - GET - showNotePatientList
+     * @param patientId the patient ID
+     * @param model the model
+     * @return a page which contains all notes belong to a patient
+     */
     @GetMapping({"/list/{id}"})
     public String showNotePatientList(@PathVariable("id") final Integer patientId, Model model) {
 
@@ -40,6 +45,15 @@ public class PatientNoteController {
         return "note/list";
     }
 
+    /**
+     * Controller - GET - deleteNote
+     *
+     * @param noteId the note ID
+     * @param patientId the patient ID
+     *
+     * @return a page without the deleted note
+     *
+     */
     @GetMapping({"/delete/{id}/{patientId}"})
     public String deleteNote(@PathVariable("id") String noteId , @PathVariable("patientId") final Integer patientId) {
 
@@ -52,6 +66,15 @@ public class PatientNoteController {
         return "redirect:/note/list/" + patientId;
     }
 
+    /**
+     * Controller -  GET - show update form
+     *
+     * @param noteId the note ID
+     * @param model the model
+     *
+     * @return an update page
+     *
+     */
     @GetMapping({"/update/{id}"})
     public String showUpdateForm(@PathVariable("id") String noteId, final Model model) {
 
@@ -65,6 +88,16 @@ public class PatientNoteController {
         return "note/update";
     }
 
+    /**
+     * Controller POST - updateNote
+     *
+     * @param noteId the note ID
+     * @param patientNoteRequest the patientNoteRequest
+     * @param result the BindingResult to handle errors
+     *
+     * @return a list of notes with the note updated
+     *
+     */
     @PostMapping({"/update/{id}"})
     public String updateNote(@PathVariable("id") String noteId,
                              @Valid final PatientNoteRequest patientNoteRequest,
@@ -84,6 +117,12 @@ public class PatientNoteController {
         }
     }
 
+    /**
+     * controller - GET - addNoteForm
+     * @param model the model
+     * @param patientId the patientID
+     * @return an add page
+     */
     @GetMapping({"/add/{id}"})
     public String addNoteForm(final Model model, @PathVariable("id")final Integer patientId){
 
@@ -97,6 +136,15 @@ public class PatientNoteController {
 
     }
 
+    /**
+     * Controller - POST - validateAddNote
+     *
+     * @param patientNoteRequest the patientNoteRequest to add
+     * @param result the BindingResult to handle errors
+     * @param model the model
+     *
+     * @return a list of notes with a new note
+     */
     @PostMapping({"/validate"})
     public String validateAddNote(@Valid final PatientNoteRequest patientNoteRequest, final BindingResult result, final Model model) {
 

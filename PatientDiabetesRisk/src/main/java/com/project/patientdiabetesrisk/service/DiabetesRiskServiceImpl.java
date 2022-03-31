@@ -1,36 +1,44 @@
 package com.project.patientdiabetesrisk.service;
 
 import com.project.patientdiabetesrisk.constant.RiskLevels;
+import com.project.patientdiabetesrisk.dto.DiabetesAssessment;
 import com.project.patientdiabetesrisk.dto.PatientNoteRequest;
 import com.project.patientdiabetesrisk.dto.PatientRequest;
 import com.project.patientdiabetesrisk.proxy.PatientHistoricalMicroService;
 import com.project.patientdiabetesrisk.proxy.PatientMicroService;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+
 
 @Service
 public class DiabetesRiskServiceImpl implements DiabetesRiskService {
 
     private final PatientHistoricalMicroService patientHistoricalMicroService;
+
     private final PatientMicroService patientMicroService;
 
     /**
      * The medical keyword trigger
      */
-    private final String[] keywords = {"Hemoglobin A1C", "Microalbumin",
+    private final String[] keywords = { "Hemoglobin A1C", "Microalbumin",
             "Height", "Weight",
             "Smoker", "Abnormal", "Cholesterol",
-            "Dizziness", "Relapse", "Reaction", "Antibodies"};
+            "Dizziness", "Relapse", "Reaction", "Antibodies" };
 
     public DiabetesRiskServiceImpl(PatientHistoricalMicroService patientHistoricalMicroService, PatientMicroService patientMicroService) {
         this.patientHistoricalMicroService = patientHistoricalMicroService;
         this.patientMicroService = patientMicroService;
     }
 
-
+    /**
+     * Method to return the last result as a string
+     *
+     * @param patientId the patientId
+     *
+     * @return The final result
+     */
     public String finalTextResult(Integer patientId) {
 
         PatientRequest patientRequest = patientMicroService.getPatientById(patientId);
@@ -39,15 +47,34 @@ public class DiabetesRiskServiceImpl implements DiabetesRiskService {
         return "Patient : "
                 +patientRequest.getLastName()+" "
                 +patientRequest.getFirstName()
-                +" "+" age "
+                +"."+" Age: "
                 + calculateAge(patientRequest)
                 +" "+" diabetes risk level is : "+riskLevel;
+    }
 
+    /**
+     * Method to get a diabetes risk level as a diabetesAssessment Object
+     *
+     * @param patientId the patientId
+     *
+     * @return a DiabetesAssessment's object
+     */
+    public DiabetesAssessment getDiabetesAssessment(Integer patientId) {
+
+        PatientRequest patientRequest = patientMicroService.getPatientById(patientId);
+        String riskLevel = evaluateRiskLevel(patientRequest);
+
+        return new DiabetesAssessment(patientRequest.getFirstName(),
+                patientRequest.getLastName(),
+                calculateAge(patientRequest).toString(),
+                riskLevel);
     }
 
     /**
      * Methode to evaluate the risk level
+     *
      * @param patient the patient
+     *
      * @return the risk level
      */
     private String evaluateRiskLevel(PatientRequest patient) {
@@ -59,16 +86,18 @@ public class DiabetesRiskServiceImpl implements DiabetesRiskService {
         String sex = patient.getSex();
         RiskLevels riskLevel = getRiskLevel(age,trigger,sex);
 
-        System.out.println("Patient is "+ age + "years old, with "+ trigger +"triggers keywords, so his risk level is "+ riskLevel );
+        System.out.println("Patient is "+ age + "years old, with "+ trigger +" triggers keywords, so his risk level is "+ riskLevel );
 
         return riskLevel.getRiskLevel();
     }
 
     /**
      * Method to get the risk level
+     *
      * @param age the age
      * @param trigger the number of triggers
      * @param sex the sex
+     *
      * @return A risk level
      */
     private RiskLevels getRiskLevel(int age, int trigger, String sex) {
@@ -93,7 +122,9 @@ public class DiabetesRiskServiceImpl implements DiabetesRiskService {
 
     /**
      * Method to calculate Patient age
+     *
      * @param patient the patient
+     *
      * @return the age
      */
     private Integer calculateAge(PatientRequest patient) {
@@ -113,6 +144,7 @@ public class DiabetesRiskServiceImpl implements DiabetesRiskService {
      * @param notes the list of patient's note
      * @return the number of trigger
      */
+    // TODO faire en sorte que le mot clé ne soit utilisable qu'une fois.
     private int getTriggerForOnePatient(List<PatientNoteRequest> notes) {
 
         AtomicInteger countTrigger = new AtomicInteger();

@@ -23,11 +23,7 @@
         &nbsp;
         <input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
 
-        <script type="text/javascript">
-            function clearSearch() {
-                window.location = "[[@{/patient/list}]]";
-            }
-        </script>
+
     </form>
     </br></br>
     <div class="row"><h2>Patient List</h2></div>
@@ -45,6 +41,7 @@
                 <th>Phone</th>
                 <th> Action </th>
                 <th> Patient Note </th>
+                <th> Evaluate Diabetes Risk </th>
             </tr>
             </thead>
             <tbody>
@@ -64,6 +61,9 @@
                 <td>
                     <a th:href="@{/note/list/{id}(id=${patient.id})}" class="btn btn-primary btn-sm bg-primary font-weight-bold"> Display Notes </a>
                 </td>
+                <td>
+                    <a th:href="@{/riskLevel/{id}(id=${patient.id})}" class="btn btn-primary btn-sm bg-primary font-weight-bold"> Evaluate Diabetes Risk </a>
+                </td>
             </tr>
             </tbody>
         </table>
@@ -72,4 +72,10 @@
 
 </body>
 
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/patient/list}]]";
+    }
+
+</script>
 </html>

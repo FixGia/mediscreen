@@ -1,5 +1,6 @@
 package com.project.patientdiabetesrisk.controller;
 
+import com.project.patientdiabetesrisk.dto.DiabetesAssessment;
 import com.project.patientdiabetesrisk.service.DiabetesRiskService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +17,36 @@ public class DiabetesRiskController {
         this.diabetesRiskService = diabetesRiskService;
     }
 
+    /**
+     * Controller Get - getRiskLevel
+     *
+     * @param patientId the patient ID
+     *
+     * @return a String which contain patient name, patient age, number of trigger and risk level
+     */
     @GetMapping("/riskLevel/{id}")
     public String getRiskLevel(@PathVariable("id") Integer patientId) {
 
-       return diabetesRiskService.finalTextResult(patientId);
+        log.debug("Controller: getRiskLevel for PatientDiabetesRisk - called");
 
+        log.info("Controller: getRiskLevel for PatientDiabetesRisk  - success");
+        return diabetesRiskService.finalTextResult(patientId);
+
+    }
+
+    /**
+     * Controller Get - getDiabetesAssessment
+     *
+     * @param patientId the patient ID
+     *
+     * @return a DiabetesAssessment object
+     */
+    @GetMapping("/riskLevel/diabetesAssessment/{id}")
+    public DiabetesAssessment getDiabetesAssessment(@PathVariable("id") Integer patientId){
+
+        log.debug("Controller: getDiabetesAssessment for PatientDiabetesRisk - called");
+
+        log.info("Controller: getDiabetesAssessment for PatientDiabetesRisk - success");
+        return diabetesRiskService.getDiabetesAssessment(patientId);
     }
 }

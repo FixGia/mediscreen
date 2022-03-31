@@ -10,12 +10,24 @@ import java.time.LocalDate;
 @ToString
 public class PatientNoteRequest {
 
+    /**
+     * the note ID
+     */
     private String id;
 
+    /**
+     * the patient ID
+     */
     private Integer patientId;
 
+    /**
+     * The date
+     */
     private LocalDate date;
 
+    /**
+     * The note
+     */
     private String note;
 
     /**

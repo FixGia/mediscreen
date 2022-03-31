@@ -12,10 +12,26 @@ import java.util.List;
 @Repository
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
-    @Query("SELECT p FROM Patient p WHERE CONCAT(p.lastName,' ', p.firstName) LIKE %?1%")
+    /**
+     * The method to find by Key word in DB
+     *
+     * @param keyword the keyword
+     *
+     * @return a list with patients
+     */
+    @Query("SELECT p FROM Patient p WHERE lower(CONCAT(p.lastName,' ', p.firstName)) LIKE %?1%")
     List<Patient> findByKeyword(String keyword);
 
 
+    /**
+     * Method to find patient by lastname, firstname and birthDate
+     *
+     * @param lastName the firstname
+     * @param firstName the lastname
+     * @param birthDate the birthDate
+     *
+     * @return a Patient
+     */
     Patient findByLastNameAndFirstNameAndBirthDate(final String lastName, final String firstName, final LocalDate birthDate);
 
 }

@@ -8,7 +8,7 @@
       <jdbc-url>mongodb://localhost:27017</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="MediScreenDB@localhost" uuid="39544788-efc3-4ceb-b537-f97c4c34b4d5">
+    <data-source source="LOCAL" name="PostgreSQL - MediScreenDB@localhost" uuid="39544788-efc3-4ceb-b537-f97c4c34b4d5">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

@@ -16,14 +16,26 @@ import java.time.LocalDate;
 @Document(collection = "PatientHistorical")
 public class PatientNote {
 
+    /**
+     * The note ID
+     */
     @Id
     private String id;
 
+    /**
+     * The patient ID
+     */
     @Field(value = "patient_id")
     private Integer patientId;
 
+    /**
+     * The date
+     */
     private LocalDate date;
 
+    /**
+     * The note
+     */
     private String doctorNote;
 
 
