@@ -2,8 +2,8 @@ package com.project.ui.controller;
 
 import com.project.ui.dto.PatientNoteRequest;
 import com.project.ui.proxy.PatientHistoricalMicroService;
+import com.project.ui.proxy.PatientMicroService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,9 +20,11 @@ import javax.validation.Valid;
 public class PatientNoteController {
 
     private final PatientHistoricalMicroService microService;
+    private final PatientMicroService patientMicroService;
 
-    public PatientNoteController(PatientHistoricalMicroService microService) {
+    public PatientNoteController(PatientHistoricalMicroService microService, PatientMicroService patientMicroService) {
         this.microService = microService;
+        this.patientMicroService = patientMicroService;
     }
 
     /**
@@ -39,6 +41,8 @@ public class PatientNoteController {
         model.addAttribute("patientId", patientId);
 
         model.addAttribute("notes", microService.getPatientNoteList(patientId));
+
+        model.addAttribute("patient", patientMicroService.getPatientById(patientId));
 
         log.info("UI - GET - /note/list/** - return patient Note List successfully");
 

@@ -1,8 +1,8 @@
 FROM openjdk:11
 
-VOLUME /tmp
+VOLUME /mediscreen_db_data
 
-EXPOSE 8081
+EXPOSE 9011
 
 ARG JAR_FILE=target/Patient-0.0.1-SNAPSHOT.jar
 

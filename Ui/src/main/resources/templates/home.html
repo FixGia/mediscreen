@@ -1,10 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>HOME</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" >
+<head >
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
-<body>
-<p> WELCOME IN MEDISCREEN PAGE</p>
+<body style="background-image: url('https://cdn.pixabay.com/photo/2016/12/05/19/49/syringe-1884784_960_720.jpg');
+ background-repeat: no-repeat; background-size: cover;">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: rgba(0,98,74,0.84)">
+    <a class="navbar-brand" href="/"> Mediscreen </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/patient/list" style="margin-left: 250px">All Patients</a>
+            </li>
+            <li  class="navbar-text" style="margin-right: 10px; margin-left: 230px" > Search a Patient :  </li>
+        </ul>
+
+        <form th:action="@{/patient/list}">
+
+            <input type="text" name="keyword" id="keyword" size="50%" th:value="${keyword}" required />
+            &nbsp;<input type="submit" value="🔎︎" />
+            &nbsp;<input type="button" value="Clear" id="btnClear" onclick="clearSearch()" />
+        </form>
+    </div>
+</nav>
+    <div class=" mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+        <div class="my-3 p-3">
+            </br>
+            <h1 class="text-left" style="color: rgba(0,98,74,0.84); font-size: 50px">WELCOME TO MEDISCREEN </h1>
+            </br>
+            <h3 class="display-5 mx-auto text-left" style="color: rgba(0,98,74,0.84);"> An Application to assess diabetes risks.</h3>
+
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small fixed-bottom">
+        <p class="mb-1">&copy;2022 Mediscreen Company  </p>
+        <ul class="list-inline">
+            <li class="list-inline-item"><a href="#">Privacy</a></li>
+            <li class="list-inline-item"><a href="#">Terms</a></li>
+            <li class="list-inline-item"><a href="#">Support</a></li>
+        </ul>
+    </footer>
 </body>
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script type="text/javascript">
+    function clearSearch() {
+        window.location = "[[@{/}]]";
+    }
+</script>
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="../../assets/js/vendor/popper.min.js"></script>
+<script src="../../dist/js/bootstrap.min.js"></script>
+<script src="../../assets/js/vendor/holder.min.js"></script>
+<script>
+    Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+    });
+</script>
+
 </html>

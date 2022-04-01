@@ -3,22 +3,32 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8"/>
-    <title>Home</title>
+    <title>Add New Note</title>
     <link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
-<body>
+<nav class="navbar navbar-expand-md navbar-dark  fixed-top" style="background-color: rgba(0,98,74,0.84) ">
+    <a class="navbar-brand" href="/"> Mediscreen </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    </div>
+</nav>
+<body style="background-image: url('https://cdn.pixabay.com/photo/2016/12/05/19/49/syringe-1884784_960_720.jpg');
+ background-repeat: no-repeat; background-size: cover;">
+<div class=" box-shadow mx-auto " style="width: 80%; height: auto; border-radius: 21px 21px 21px 21px; color: rgba(0,98,74,0.84); margin-top: 100px;"  >
 <div class="container">
 
     <div class="row">
-        <h2>Add New Note</h2>
+        <h2 style="font-size: 80px"> Add New Note</h2>
     </div>
 
     <div class="row">
-        <form action="#" th:action="@{/note/validate}" th:object="${note}" method="post" class="form-horizontal" style="width: 100%">
+        <form action="#" th:action="@{/note/validate}" th:object="${note}" method="post" class="form-horizontal" style="width: 100%; margin-left: 20px">
             <input type="hidden" th:field="*{patientId}" id="patientId">
             <input type="hidden" th:field="*{date}" id="date">
             <div class="form-group">
-                <label for="note" class="col-sm-2 control-label">Note</label>
+                <label for="note" class="col-sm-2 control-label" style="font-size: 25px; font-weight: bold ">Note</label>
                 <div class="col-sm-10">
                     <input type="text" th:field="*{note}" id="note" placeholder="note" class="col-4">
                     <p class="text-danger" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></p>
@@ -26,14 +36,14 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-12">
-                    <a class="btn btn-danger btn-sm" th:href="@{/note/list/{id}(id=*{patientId})}">Cancel</a>
-                    <input class="btn btn-primary btn-sm" type="submit" value="Add Note">
+                    <a class="btn btn-danger btn-lg" th:href="@{/note/list/{id}(id=*{patientId})}">Cancel</a>
+                    <input class="btn btn-primary btn-lg  font-weight-bold " style="background-color: rgba(0,98,74,0.84)" type="submit" value="Add Note">
                 </div>
             </div>
 
         </form>
     </div>
-
+</div>
 </div>
 </body>
 </html>

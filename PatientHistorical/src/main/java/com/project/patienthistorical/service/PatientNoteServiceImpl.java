@@ -29,6 +29,7 @@ public class PatientNoteServiceImpl implements PatientNoteService {
         this.mapper = mapper;
     }
 
+    //TODO tester la methode et le controller
     /**
      * Method to getPatient Note
      *
