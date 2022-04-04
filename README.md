@@ -78,7 +78,11 @@ Install Docker: - https://www.docker.com/products/docker-desktop
 
 # API ENDPOINTS DOCUMENTATION 
 
+Swagger link for Patient-microservice : http://localhost:9011/swagger-ui.html#/
 
+Swagger link for PatientHistorical-microservice : http://localhost:9012/swagger-ui.html#/
+
+Swagger link for PatientDiabetesRisk-microservice : http://localhost:9013/swagger-ui.html#/
 
 
 
