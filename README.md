@@ -63,4 +63,20 @@ Install Docker: - https://www.docker.com/products/docker-desktop
 ----
 ▶️ SYNTAX = docker-compose up -d
 
+# Test Report 
+
+## Patient 
+
+![report jacoco P9](https://user-images.githubusercontent.com/79265943/161596370-44677ff5-dab5-4e0c-832b-c2df127a5784.png)
+## PatientHistorical
+
+![report jacoco patientHistorical P9](https://user-images.githubusercontent.com/79265943/161596397-07a735f5-5d97-453c-88b3-c0fb15ae235a.png)
+## PatientDiabetesRisk
+![report jacoco DiabetesRisk P9](https://user-images.githubusercontent.com/79265943/161596524-8ea78fb8-6d12-4dcc-bbbe-b9502b81960c.png)
+## Ui
+![report jacoco Ui P9](https://user-images.githubusercontent.com/79265943/161596557-a21b0ad2-77dd-47b4-a21d-38ec200b5882.png)
+
+
+
+
 
