@@ -76,6 +76,11 @@ Install Docker: - https://www.docker.com/products/docker-desktop
 ## Ui
 ![report jacoco Ui P9](https://user-images.githubusercontent.com/79265943/161596557-a21b0ad2-77dd-47b4-a21d-38ec200b5882.png)
 
+# API ENDPOINTS DOCUMENTATION 
+
+
+
+
 
 
 
