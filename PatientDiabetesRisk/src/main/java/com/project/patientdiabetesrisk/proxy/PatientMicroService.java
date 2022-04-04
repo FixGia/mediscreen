@@ -5,10 +5,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(value ="patient-microService",  url = "${PROXY_PATIENT:http://localhost:9011/patient}")
+@FeignClient(value ="patient-microservice",  url = "${PROXY_PATIENT:http://patient-microservice:9011/patient}")
 public interface PatientMicroService {
-
-
 
 
     /**

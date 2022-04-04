@@ -70,7 +70,7 @@ public class PatientController {
      * @return the updated patient
      */
     @PostMapping({"/update/{id}"})
-    public String updateUser(
+    public String updatePatient(
             @PathVariable("id") final Integer patientId,
             @Valid final PatientRequest patientRequest,
             final BindingResult result) {

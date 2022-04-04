@@ -1,14 +1,19 @@
 package com.project.ui.ControllerTest;
 
+import com.project.ui.controller.PatientNoteController;
 import com.project.ui.dto.PatientNoteRequest;
 import com.project.ui.dto.PatientRequest;
 import com.project.ui.proxy.PatientHistoricalMicroService;
+import com.project.ui.proxy.PatientMicroService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -23,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@ExtendWith(SpringExtension.class)
+
 public class TestPatientNoteController {
 
     @Autowired
@@ -33,6 +40,9 @@ public class TestPatientNoteController {
 
     @MockBean
     PatientHistoricalMicroService microService;
+
+    @MockBean
+    PatientMicroService patientMicroService;
 
     private static PatientNoteRequest patientNoteRequest;
 
@@ -97,15 +107,17 @@ public class TestPatientNoteController {
     @Test
     public void TestGetNoteList() throws Exception {
 
+        when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
         mvc.perform(MockMvcRequestBuilders.get("/note/list/1"))
+                .andExpect(model().attributeExists("patient"))
                 .andExpect(model().attributeExists("notes"))
-                .andExpect(model().size(2))
+                .andExpect(model().size(3))
                 .andExpect(view().name("note/list"))
                 .andExpect(status().isOk());
     }
-
     @Test
-    public void TestUpdatePatient() throws Exception {
+    public void TestUpdatePatientNote() throws Exception {
+
         when(microService.getNoteById(patientNoteRequest.getId())).thenReturn(patientNoteRequest);
 
         mvc.perform(MockMvcRequestBuilders.get("/note/update/"+ patientNoteRequest.getId()))
@@ -113,6 +125,20 @@ public class TestPatientNoteController {
                 .andExpect(model().size(1))
                 .andExpect(view().name("note/update"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void TestGetUpdateNoteForm() throws Exception {
+
+        when(microService.getNoteById(patientNoteRequest.getId())).thenReturn(patientNoteRequest);
+
+        mvc.perform(MockMvcRequestBuilders.post("/note/update/1")
+                .sessionAttr("note", patientNoteRequest)
+                .param("patientId", patientNoteRequest.getPatientId().toString())
+                .param("note", patientNoteRequest.getNote()))
+                .andExpect(redirectedUrl("/note/list/1"));
+
+        verify(microService).updateNoteById(anyString(),any(PatientNoteRequest.class));
     }
 
 

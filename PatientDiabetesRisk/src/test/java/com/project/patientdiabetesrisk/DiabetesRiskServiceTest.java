@@ -84,7 +84,7 @@ public class DiabetesRiskServiceTest {
 
         lenient().when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
         lenient().when(patientHistoricalMicroService.getPatientNoteList(1)).thenReturn(notes);
-        String result = diabetesRiskService.finalTextResult(1);
+        String result = diabetesRiskService.finalRiskLevelTextResult(1);
 
         assertEquals("Patient : lastname firtname. Age: 31  diabetes risk level is : Borderline", result);
 
@@ -103,7 +103,7 @@ public class DiabetesRiskServiceTest {
 
         lenient().when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
         lenient().when(patientHistoricalMicroService.getPatientNoteList(1)).thenReturn(notes);
-        String result = diabetesRiskService.finalTextResult(1);
+        String result = diabetesRiskService.finalRiskLevelTextResult(1);
 
         assertEquals("Patient : lastname firtname. Age: 31  diabetes risk level is : None", result);
 
@@ -120,7 +120,7 @@ public class DiabetesRiskServiceTest {
 
         lenient().when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
         lenient().when(patientHistoricalMicroService.getPatientNoteList(1)).thenReturn(notes);
-        String result = diabetesRiskService.finalTextResult(1);
+        String result = diabetesRiskService.finalRiskLevelTextResult(1);
 
         assertEquals("Patient : lastname firtname. Age: 31  diabetes risk level is : In danger", result);
     }
@@ -137,7 +137,7 @@ public class DiabetesRiskServiceTest {
 
         lenient().when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
         lenient().when(patientHistoricalMicroService.getPatientNoteList(1)).thenReturn(notes);
-        String result = diabetesRiskService.finalTextResult(1);
+        String result = diabetesRiskService.finalRiskLevelTextResult(1);
 
         assertEquals("Patient : lastname firtname. Age: 31  diabetes risk level is : Early onset", result);
     }
@@ -156,7 +156,7 @@ public class DiabetesRiskServiceTest {
 
         lenient().when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
         lenient().when(patientHistoricalMicroService.getPatientNoteList(1)).thenReturn(notes);
-        String result = diabetesRiskService.finalTextResult(1);
+        String result = diabetesRiskService.finalRiskLevelTextResult(1);
 
         assertEquals("Patient : lastname firtname. Age: 11  diabetes risk level is : In danger", result);
 
@@ -176,7 +176,7 @@ public class DiabetesRiskServiceTest {
 
         lenient().when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
         lenient().when(patientHistoricalMicroService.getPatientNoteList(1)).thenReturn(notes);
-        String result = diabetesRiskService.finalTextResult(1);
+        String result = diabetesRiskService.finalRiskLevelTextResult(1);
 
         assertEquals("Patient : lastname firtname. Age: 11  diabetes risk level is : Early onset", result);
 
@@ -196,7 +196,7 @@ public class DiabetesRiskServiceTest {
 
         lenient().when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
         lenient().when(patientHistoricalMicroService.getPatientNoteList(1)).thenReturn(notes);
-        String result = diabetesRiskService.finalTextResult(1);
+        String result = diabetesRiskService.finalRiskLevelTextResult(1);
 
         assertEquals("Patient : lastname firtname. Age: 11  diabetes risk level is : None", result);
     }

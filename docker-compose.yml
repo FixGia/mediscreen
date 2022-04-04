@@ -2,77 +2,81 @@ version: '3.8'
 
 services :
 
-  mysql:
-    image: mysql:8
-    volumes:
-      - db_data:/var/lib/mysql
-    container_name: mysqldb
-    environment:
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: mediscreen
-    ports:
-      - "3307:3306"
-
-
-  mongodb:
-    image: mongo
-    volumes:
-      - db_data:/var/lib/mongodb
-    container_name: mongodb
-    ports:
-      - "27018:27017"
-    restart: always
-    
-
-  patient-microservice:
-    image: patient-microservice
-    build:
-      context: Patient
-      dockerfile: dockerfile
-    ports:
-      - "9021:9011"
-    depends_on:
-      - mysql
+ mysql:
+  image: mysql:latest
+  volumes:
+    - db_data:/var/lib/mysql
+  container_name: mysqldb
+  environment:
+    MYSQL_USER: user
+    MYSQL_ROOT_PASSWORD: user
+    MYSQL_DATABASE: mediscreen
+  ports:
+    - "3307:3306"
 
 
 
+ mongodb:
+  image: mongo
+  volumes:
+    - db_data:/var/lib/mongodb
+  container_name: mongodb
+  ports:
+    - "27018:27017"
+  restart: always
 
-  patient-historical:
+
+ patient-microservice:
+  image: patient-microservice
+  container_name: patient-microservice
+  build:
+    context: Patient
+    dockerfile: dockerfile
+  ports:
+    - "9011:9011"
+
+
+ patient-historical:
     image: patient-historical
+    container_name: patient-historical
     build:
       context: PatientHistorical
       dockerfile: dockerfile
     ports:
-      - "9022:9012"
+      - "9012:9012"
     depends_on:
       - mongodb
 
 
-  patient-diabetes-risk:
-    image: diabetes-risk
+ patient-diabetes-risk:
+    image: patient-diabetes-risk
+    container_name: patient-diabetes-risk
     build:
       context: PatientDiabetesRisk
       dockerfile: dockerfile
     ports:
-      - "9023:9013"
+      - "9013:9013"
     depends_on:
       - patient-microservice
     restart: always
 
 
-  ui-microservice:
+ ui-microservice:
     image: ui-microservice
+    container_name: ui-microservice
     build:
       context: Ui
       dockerfile: dockerfile
     ports:
-      - "9020:9010"
+      - "9010:9010"
     depends_on:
       - patient-microservice
       - patient-diabetes-risk
       - patient-historical
     restart: always
 
+
+
 volumes:
   db_data: {}
+

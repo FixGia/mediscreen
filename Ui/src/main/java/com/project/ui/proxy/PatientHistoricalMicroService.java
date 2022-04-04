@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 
-@FeignClient(value ="patient-historical-microService",  url = "${PROXY_PATIENT_HISTORICAL:http://localhost:9012/note}")
+@FeignClient(value ="patient-historical",  url = "${PROXY_NOTE:http://patient-historical:9012/note}")
 public interface PatientHistoricalMicroService {
 
     /**

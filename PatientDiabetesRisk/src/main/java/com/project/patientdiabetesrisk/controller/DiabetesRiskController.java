@@ -30,7 +30,7 @@ public class DiabetesRiskController {
         log.debug("Controller: getRiskLevel for PatientDiabetesRisk - called");
 
         log.info("Controller: getRiskLevel for PatientDiabetesRisk  - success");
-        return diabetesRiskService.finalTextResult(patientId);
+        return diabetesRiskService.finalRiskLevelTextResult(patientId);
 
     }
 

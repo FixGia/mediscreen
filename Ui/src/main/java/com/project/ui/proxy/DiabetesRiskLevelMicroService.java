@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(value ="patient-diabetesRiskLevel-microService",  url = "${PROXY_PATIENT_DIABETES_RISK_LEVEL:http://localhost:9013/riskLevel}")
+@FeignClient(value ="patient-diabetes-risk",  url = "${PROXY_RISK:http://patient-diabetes-risk:9013/riskLevel}")
 public interface DiabetesRiskLevelMicroService {
 
     /**

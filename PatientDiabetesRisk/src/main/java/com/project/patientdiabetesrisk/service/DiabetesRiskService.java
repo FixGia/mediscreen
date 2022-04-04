@@ -15,7 +15,7 @@ public interface DiabetesRiskService {
      * the trigger's number
      * and the diabetes risk level
      */
-    String finalTextResult(Integer patientId);
+    String finalRiskLevelTextResult(Integer patientId);
 
     /**
      * Method to get Diabetes risk level as an object

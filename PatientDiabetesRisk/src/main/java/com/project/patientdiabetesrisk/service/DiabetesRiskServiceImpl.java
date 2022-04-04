@@ -39,7 +39,7 @@ public class DiabetesRiskServiceImpl implements DiabetesRiskService {
      *
      * @return The final result
      */
-    public String finalTextResult(Integer patientId) {
+    public String finalRiskLevelTextResult(Integer patientId) {
 
         PatientRequest patientRequest = patientMicroService.getPatientById(patientId);
         String riskLevel = evaluateRiskLevel(patientRequest);
@@ -144,7 +144,6 @@ public class DiabetesRiskServiceImpl implements DiabetesRiskService {
      * @param notes the list of patient's note
      * @return the number of trigger
      */
-    // TODO faire en sorte que le mot clé ne soit utilisable qu'une fois.
     private int getTriggerForOnePatient(List<PatientNoteRequest> notes) {
 
         AtomicInteger countTrigger = new AtomicInteger();

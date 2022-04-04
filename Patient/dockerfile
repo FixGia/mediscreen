@@ -1,10 +1,11 @@
 FROM openjdk:11
 
-VOLUME /mediscreen_db_data
+VOLUME /tmp
 
 EXPOSE 9011
 
 ARG JAR_FILE=target/Patient-0.0.1-SNAPSHOT.jar
+
 
 COPY ${JAR_FILE} app.jar
 

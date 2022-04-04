@@ -9,12 +9,16 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -86,11 +90,17 @@ public class TestPatientController {
 
     @Test
     public void TestGetPatientList() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/patient/list"))
+
+
+
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/patient/list"))
                 .andExpect(model().attributeExists("patients"))
                 .andExpect(model().size(2))
                 .andExpect(view().name("patient/list"))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andReturn();
+
+        assertNotNull(result);
+
     }
 
     @Test
@@ -109,6 +119,19 @@ public class TestPatientController {
     public void TestUpdatePatient() throws Exception {
 
         when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
+
+        mvc.perform(MockMvcRequestBuilders.post("/patient/update/1"))
+                .andExpect(model().attributeExists("patientRequest"))
+                .andExpect(model().size(1))
+                .andExpect(view().name("patient/update"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void TestShowFormUpdatePatient() throws Exception {
+
+        when(patientMicroService.getPatientById(1)).thenReturn(patientRequest);
+
         mvc.perform(MockMvcRequestBuilders.get("/patient/update/1"))
                 .andExpect(model().attributeExists("patientRequest"))
                 .andExpect(model().size(1))

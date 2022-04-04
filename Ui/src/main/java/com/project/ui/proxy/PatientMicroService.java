@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 
-@FeignClient(value ="patient-microService",  url = "${PROXY_PATIENT:http://localhost:9011/patient}")
+// @FeignClient(value ="patient-microservice",  url="${PROXY_PATIENT:http://0.0.0.0:9011/patient}")
+@FeignClient(value ="patient-microservice",  url= "${PROXY_PATIENT:http://patient-microservice:9011/patient}")
 public interface PatientMicroService {
 
 
