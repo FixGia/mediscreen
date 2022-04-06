@@ -60,10 +60,10 @@ Install Docker: - https://www.docker.com/products/docker-desktop
 
 :one: Build .jar
 
-* After you fork projet 
-
-
-
+* Open your terminal and go to each microServices directory and run this command :
+* ▶️ SYNTAX = mvn clean install -DskipTests
+* thanks to this command you build .jar 
+* you have to build jar to run docker-compose.
 
 :two: Docker
 ----
