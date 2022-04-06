@@ -68,7 +68,7 @@ Install Docker: - https://www.docker.com/products/docker-desktop
 :two: Docker
 ----
 * Open your terminal and go to the directory containing docker-compose.yml
-▶️ SYNTAX = docker-compose up -d
+* ▶️ SYNTAX = docker-compose up -d
 
 # Test Report 
 
