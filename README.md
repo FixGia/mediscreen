@@ -45,7 +45,7 @@ Install Docker: - https://www.docker.com/products/docker-desktop
 
 ### Port:9013 - PatientDiabetesRisk
 
-* This microservice defines the risk's level of a patient's diabetes. It based on the data retrived by communicating through Feign with Patient and PatientHistorical.
+* This microservice defines the risk's level of a patient's diabetes. It based on the data retrieved by FeignClient thanks to Patient and PatientHistorical.
 
 # Basic Architecture
 ![Architecture P9](https://user-images.githubusercontent.com/79265943/161589755-e5f7b1dd-b300-4395-8cf6-dc5ec0fd877c.png)
