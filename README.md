@@ -57,10 +57,17 @@ Install Docker: - https://www.docker.com/products/docker-desktop
 # Run Application 
 
 * Install the prerequisites and Technology list above. 
-* Open your terminal and go to the directory containing docker-compose.yml
 
-:one: Docker
+:one: Build .jar
+
+* After you fork projet 
+
+
+
+
+:two: Docker
 ----
+* Open your terminal and go to the directory containing docker-compose.yml
 ▶️ SYNTAX = docker-compose up -d
 
 # Test Report 
